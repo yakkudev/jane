@@ -1,0 +1,6 @@
+component dependency
+world (scene)
+audio
+input management
+generic asset loading and management (automatic loading)
+hot reloading
