@@ -4,6 +4,7 @@
 #include "types.h"
 #include "asset_manager.h"
 #include "component_manager.h"
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 class Game {
