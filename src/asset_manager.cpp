@@ -2,21 +2,25 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-AssetManager* AssetManager::instance = nullptr;
+std::map<std::string, sf::Texture*> AssetManager::textures;
+std::map<std::string, sf::Font*> AssetManager::fonts;
 
-AssetManager::AssetManager() {
-    if (instance) {
-        std::cerr << "AssetManager instance already exists" << std::endl;
-        return;
-    }
-    instance = this;
-
+void AssetManager::init() {
     loadTexture("goku", "assets/goku.png");
     loadTexture("sheldon", "assets/sheldon.png");
+
+    loadFont("ProggyClean", "assets/ProggyClean.ttf");
 }
 
-AssetManager::~AssetManager() {
-    // TODO: i think this causes a memory leak
+void AssetManager::clean() {
+    for (auto& texture : textures) {
+        delete texture.second;
+    }
+
+    for (auto& font : fonts) {
+        delete font.second;
+    }
+
     textures.clear();
     fonts.clear();
 }
