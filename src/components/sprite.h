@@ -2,6 +2,7 @@
 
 #include "component.h"
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class SpriteComponent : public Component {
 private:
