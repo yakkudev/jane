@@ -1,6 +1,7 @@
 #include "game.h"
 #include "components/transform.h"
 #include "components/sprite.h"
+#include "components/text.h"
 #include <iostream>
 
 f32 Game::deltaTime = 0.0f;
@@ -33,10 +34,17 @@ void Game::run() {
 
     isRunning = true;
 
-    Entity* box = new Entity(window);
-    box->addComponent(new TransformComponent())
-        ->addComponent(new SpriteComponent("sheldon"));
-    entities.push_back(box);
+    entities.push_back(
+        (new Entity(window))
+        ->addComponent(new TransformComponent())
+        ->addComponent(new SpriteComponent("sheldon"))
+    );
+
+    entities.push_back(
+        (new Entity(window))
+        ->addComponent(new TransformComponent())
+        ->addComponent(new TextComponent("ProggyClean", "Hello, World!"))
+    );
 
     for (;;) {
         handleEvents();
