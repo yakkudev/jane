@@ -25,3 +25,13 @@ static_assert(sizeof(f64) == 8, "f64 is not 64 bits");
 
 typedef unsigned long long usize;
 static_assert(sizeof(usize) == sizeof(void*), "usize is not the same size as a pointer");
+
+
+// ==== SFML ====
+#include <SFML/Graphics.hpp>
+
+typedef sf::Vector2f Vec2;
+typedef sf::Vector2i Vec2i;
+typedef sf::Vector2u Vec2u;
+typedef sf::Color Color;
+typedef sf::RenderWindow Window;

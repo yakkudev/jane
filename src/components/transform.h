@@ -6,8 +6,8 @@
 
 class TransformComponent : public Component {
 public:
-    sf::Vector2f position;
-    sf::Vector2f scale;
+    Vec2 position;
+    Vec2 scale;
     f32 rotation;
 
     TransformComponent() : TransformComponent(0.0f, 0.0f) {}

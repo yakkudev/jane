@@ -1,4 +1,5 @@
 #include "game.h"
+#include "input_manager.h"
 #include "components/transform.h"
 #include "components/sprite.h"
 #include "components/text.h"
@@ -8,7 +9,7 @@ f32 Game::deltaTime = 0.0f;
 
 Game::Game(u32 width, u32 height, const std::string& title) {
     isRunning = false;
-    window = new sf::RenderWindow{ sf::VideoMode{ width, height }, title };
+    window = new Window{ sf::VideoMode{ width, height }, title };
 }
 
 Game::~Game() {
@@ -17,6 +18,7 @@ Game::~Game() {
 
 void Game::init() {
     AssetManager::init();
+    InputManager::init(window);
 
     u32 test2 = ComponentManager::registerComponent<SpriteComponent>();
     u32 test = ComponentManager::registerComponent<TransformComponent>();
@@ -77,6 +79,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+    InputManager::update();
     for (auto& entity : entities) {
         entity->update();
     }

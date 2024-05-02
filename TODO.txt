@@ -1,7 +1,5 @@
 view entity
-world (scene)
 audio
-input management
 generic asset loading and management (automatic loading)
 hot reloading
 safety (smart pointers) (very optional)

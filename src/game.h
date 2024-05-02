@@ -22,7 +22,7 @@ private:
     }
 
     bool isRunning;
-    sf::RenderWindow* window;
+    Window* window;
     sf::View view;
     std::vector<Entity*> entities;
 
