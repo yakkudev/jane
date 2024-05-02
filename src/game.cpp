@@ -3,7 +3,7 @@
 #include "components/transform.h"
 #include "components/sprite.h"
 #include "components/text.h"
-#include "components/cam.h"
+#include "components/camera.h"
 #include <iostream>
 
 f32 Game::deltaTime = 0.0f;
@@ -26,13 +26,13 @@ void Game::init() {
     AssetManager::init();
     InputManager::init(window);
 
-    u32 test2 = ComponentManager::registerComponent<SpriteComponent>();
-    u32 test = ComponentManager::registerComponent<TransformComponent>();
-    runTest<TransformComponent>(test);
-    runTest<SpriteComponent>(test2);
+    u32 test2 = ComponentManager::registerComponent<GC_Sprite>();
+    u32 test = ComponentManager::registerComponent<GC_Transform>();
+    runTest<GC_Transform>(test);
+    runTest<GC_Sprite>(test2);
 
-    ComponentManager::registerComponent<TextComponent>();
-    ComponentManager::registerComponent<CamComponent>();
+    ComponentManager::registerComponent<GC_Text>();
+    ComponentManager::registerComponent<GC_Camera>();
 }
 
 void Game::run() {
@@ -45,20 +45,20 @@ void Game::run() {
     // This will be moved to a scene
     entities.push_back(
         (new Entity(window))
-        ->addComponent(new TransformComponent())
-        ->addComponent(new SpriteComponent("sheldon"))
+        ->addComponent(new GC_Transform())
+        ->addComponent(new GC_Sprite("sheldon"))
     );
 
     entities.push_back(
         (new Entity(window))
-        ->addComponent(new TransformComponent())
-        ->addComponent(new TextComponent("ProggyClean", "Hello, World!"))
+        ->addComponent(new GC_Transform())
+        ->addComponent(new GC_Text("ProggyClean", "Hello, World!"))
     );
 
     entities.push_back(
         (new Entity(window))
-        ->addComponent(new TransformComponent())
-        ->addComponent(new CamComponent())
+        ->addComponent(new GC_Transform())
+        ->addComponent(new GC_Camera())
     );
 
     // Init entities

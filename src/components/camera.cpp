@@ -1,22 +1,22 @@
-#include "cam.h"
+#include "camera.h"
 #include "game.h"
 #include "transform.h"
 #include "entity.h"
 #include "input_manager.h"
 
-CamComponent::CamComponent() {
+GC_Camera::GC_Camera() {
     zoom = 1.0f;
     view = Game::getView();
 
-    require<TransformComponent>();
+    require<GC_Transform>();
 }
 
-void CamComponent::init() {
+void GC_Camera::init() {
     view->setCenter(0, 0);
-    transform = entity->getComponent<TransformComponent>();
+    transform = entity->getComponent<GC_Transform>();
 }
 
-void CamComponent::update() {
+void GC_Camera::update() {
 
     if (InputManager::getMouseButton(MouseButton::Left)) {
         transform->position.x -= InputManager::getMouseDelta().x / zoom;

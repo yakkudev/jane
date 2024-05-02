@@ -3,16 +3,16 @@
 #include "entity.h"
 #include "transform.h"
 
-SpriteComponent::SpriteComponent(const std::string& assetName) {
+GC_Sprite::GC_Sprite(const std::string& assetName) {
     sprite = std::make_unique<sf::Sprite>(*AssetManager::getTexture(assetName));
-    require<TransformComponent>();
+    require<GC_Transform>();
 }
 
-SpriteComponent::~SpriteComponent() {
+GC_Sprite::~GC_Sprite() {
 }
 
-void SpriteComponent::update() {
-    auto transform = entity->getComponent<TransformComponent>();
+void GC_Sprite::update() {
+    auto transform = entity->getComponent<GC_Transform>();
     sprite->setPosition(transform->position);
 
     // Scale sprite so texture fits the entity
@@ -23,6 +23,6 @@ void SpriteComponent::update() {
     sprite->setRotation(transform->rotation);
 }
 
-void SpriteComponent::render(sf::RenderTarget* target) {
+void GC_Sprite::render(sf::RenderTarget* target) {
     target->draw(*sprite);
 }

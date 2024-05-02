@@ -3,24 +3,24 @@
 #include "transform.h"
 #include "entity.h"
 
-TextComponent::TextComponent(const std::string& assetName, const std::string& contents) {
+GC_Text::GC_Text(const std::string& assetName, const std::string& contents) {
     text = std::make_unique<sf::Text>();
     text->setFont(*AssetManager::getFont(assetName));
     text->setString(contents);
-    require<TransformComponent>();
+    require<GC_Transform>();
 }
 
-TextComponent::~TextComponent() {
+GC_Text::~GC_Text() {
 }
 
-void TextComponent::update() {
-    auto transform = entity->getComponent<TransformComponent>();
+void GC_Text::update() {
+    auto transform = entity->getComponent<GC_Transform>();
     text->setPosition(transform->position);
     text->setRotation(transform->rotation);
     text->setCharacterSize(16);
 }
 
-void TextComponent::render(sf::RenderTarget* target) {
+void GC_Text::render(sf::RenderTarget* target) {
     target->draw(*text);
 }
 

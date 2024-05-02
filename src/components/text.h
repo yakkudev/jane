@@ -4,13 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-class TextComponent : public Component {
+class GC_Text : public Component {
 private:
     std::unique_ptr<sf::Text> text;
 
 public:
-    TextComponent(const std::string& assetName, const std::string& contents);
-    ~TextComponent();
+    GC_Text(const std::string& assetName, const std::string& contents);
+    ~GC_Text();
     void update() override;
     void render(sf::RenderTarget* target) override;
 };

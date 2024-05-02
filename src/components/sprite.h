@@ -4,13 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-class SpriteComponent : public Component {
+class GC_Sprite : public Component {
 private:
     std::unique_ptr<sf::Sprite> sprite;
 
 public:
-    SpriteComponent(const std::string& assetName);
-    ~SpriteComponent();
+    GC_Sprite(const std::string& assetName);
+    ~GC_Sprite();
     void update() override;
     void render(sf::RenderTarget* target) override;
 };

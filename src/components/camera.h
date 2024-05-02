@@ -5,14 +5,14 @@
 #include "transform.h"
 #include <SFML/Graphics.hpp>
 
-class CamComponent : public Component {
+class GC_Camera : public Component {
 private:
-    TransformComponent* transform;
+    GC_Transform* transform;
     sf::View* view;
 public:
     f32 zoom;
 
-    CamComponent();
+    GC_Camera();
 
     void init() override;
     void update() override;
