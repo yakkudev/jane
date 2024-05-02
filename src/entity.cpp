@@ -16,6 +16,15 @@ bool Entity::hasComponent(Component* component) {
     return std::find(components.begin(), components.end(), component) != components.end();
 }
 
+bool Entity::hasComponent(u32 componentID) {
+    for (auto& component : components) {
+        if (ComponentManager::getComponentID(typeid(*component)) == componentID) {
+            return true;
+        }
+    }
+    return false;
+}
+
 Entity* Entity::addComponent(Component* component) {
     if (hasComponent(component)) {
         throw std::runtime_error("Entity already has component");
@@ -41,5 +50,24 @@ void Entity::update() {
 void Entity::render() {
     for (auto& component : components) {
         component->render(target);
+    }
+}
+
+bool Entity::componentCheck() {
+    for (auto& component : components) {
+        for (auto& requiredComponent : component->getRequiredComponents()) {
+            if (!hasComponent(requiredComponent)) {
+                throw std::runtime_error("Entity missing required component");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void Entity::init() {
+    componentCheck();
+    for (auto& component : components) {
+        component->init();
     }
 }

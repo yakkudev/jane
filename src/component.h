@@ -10,19 +10,15 @@ class Component {
 protected:
     std::vector<u32> requiredComponents;
     Entity* entity = nullptr;
-public:
-    void setEntity(Entity* entity) {
-        if (this->entity != nullptr) {
-            throw std::runtime_error("Component already has entity");
-            return;
-        }
-        this->entity = entity;
-    }
 
     template<typename... required> void require() {
         (requiredComponents.push_back(ComponentManager::getComponentID<required>()), ...);
     }
+public:
+    void setEntity(Entity* entity);
+    const std::vector<u32>& getRequiredComponents();
 
-    virtual void update() {}
-    virtual void render(sf::RenderTarget* target) {}
+    virtual void init();
+    virtual void update();
+    virtual void render(sf::RenderTarget* target);
 };

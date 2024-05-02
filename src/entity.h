@@ -9,6 +9,8 @@ protected:
     sf::RenderTarget* target;
     std::vector<Component*> components;
 
+    bool componentCheck();
+
 public:
     Entity(sf::RenderTarget* target);
     ~Entity();
@@ -16,6 +18,7 @@ public:
     void removeComponent(Component* component);
 
     bool hasComponent(Component* component);
+    bool hasComponent(u32 componentID);
 
     template <typename T> bool hasComponent() {
         for (auto& component : components) {
@@ -34,6 +37,8 @@ public:
         }
         return nullptr;
     }
+
+    void init();
 
     virtual void update();
     virtual void render();

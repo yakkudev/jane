@@ -36,6 +36,7 @@ void Game::run() {
 
     isRunning = true;
 
+    // This will be moved to a scene
     entities.push_back(
         (new Entity(window))
         ->addComponent(new TransformComponent())
@@ -48,6 +49,12 @@ void Game::run() {
         ->addComponent(new TextComponent("ProggyClean", "Hello, World!"))
     );
 
+    // Init entities
+    for (auto& entity : entities) {
+        entity->init();
+    }
+
+    // Update loop
     for (;;) {
         handleEvents();
         if (!running()) break;

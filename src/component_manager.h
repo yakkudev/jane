@@ -20,5 +20,6 @@ public:
         return components()[typeid(T)];
     }
 
+    static u32 getComponentID(std::type_index type);
     static u32 nextID();
 };

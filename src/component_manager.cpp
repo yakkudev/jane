@@ -9,3 +9,7 @@ u32 ComponentManager::nextID() {
     static u32 id = 0;
     return id++;
 }
+
+u32 ComponentManager::getComponentID(std::type_index type) {
+    return components()[type];
+}
