@@ -21,9 +21,9 @@ private:
         }
     }
 
+    static Window* window;
+    static sf::View* view;
     bool isRunning;
-    Window* window;
-    sf::View view;
     std::vector<Entity*> entities;
 
 public:
@@ -37,6 +37,9 @@ public:
     void handleEvents();
     void clean();
     bool running() { return isRunning; }
+
+    static Window* getWindow();
+    static sf::View* getView();
 
     static f32 deltaTime;
 };

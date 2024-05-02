@@ -35,3 +35,5 @@ typedef sf::Vector2i Vec2i;
 typedef sf::Vector2u Vec2u;
 typedef sf::Color Color;
 typedef sf::RenderWindow Window;
+typedef sf::Keyboard::Key KeyCode;
+typedef sf::Mouse::Button MouseButton;

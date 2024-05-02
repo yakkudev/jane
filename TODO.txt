@@ -1,7 +1,8 @@
+onclick on sprite event
 better throw
-view entity
 basic scenes
 audio
+game/engine separation
 generic asset loading and management (automatic loading)
 hot reloading
 safety (smart pointers) (very optional)
