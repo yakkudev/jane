@@ -47,6 +47,12 @@ void Entity::update() {
     }
 }
 
+void Entity::fixedUpdate() {
+    for (auto& component : components) {
+        component->fixedUpdate();
+    }
+}
+
 void Entity::render() {
     for (auto& component : components) {
         component->render(target);

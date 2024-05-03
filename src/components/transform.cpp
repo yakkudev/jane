@@ -17,9 +17,3 @@ GC_Transform::GC_Transform(f32 x, f32 y, f32 scaleX, f32 scaleY, f32 rotation) {
     this->scale = { scaleX, scaleY };
     this->rotation = rotation;
 }
-
-GC_Transform::GC_Transform(const GC_Transform& other) {
-    this->position = other.position;
-    this->scale = other.scale;
-    this->rotation = other.rotation;
-}

@@ -33,6 +33,7 @@ public:
 
     void init();
     void update();
+    void fixedUpdate();
     void render();
     void handleEvents();
     void clean();
@@ -42,4 +43,5 @@ public:
     static sf::View* getView();
 
     static f32 deltaTime;
+    static f32 staticDeltaTime;
 };

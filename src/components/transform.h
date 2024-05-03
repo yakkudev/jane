@@ -14,5 +14,4 @@ public:
     GC_Transform(f32 x, f32 y);
     GC_Transform(f32 x, f32 y, f32 scaleX, f32 scaleY);
     GC_Transform(f32 x, f32 y, f32 scaleX, f32 scaleY, f32 rotation);
-    GC_Transform(const GC_Transform& other);
 };

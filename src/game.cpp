@@ -6,9 +6,11 @@
 #include "components/camera.h"
 #include "components/world_button.h"
 #include "components/interaction.h"
+#include "components/demo_attractor.h"
 #include <iostream>
 
 f32 Game::deltaTime = 0.0f;
+f32 Game::staticDeltaTime = 0.0f;
 Window* Game::window = nullptr;
 sf::View* Game::view = nullptr;
 
@@ -35,6 +37,9 @@ void Game::init() {
 
     ComponentManager::registerComponent<GC_Text>();
     ComponentManager::registerComponent<GC_Camera>();
+    ComponentManager::registerComponent<GC_Interaction>();
+    ComponentManager::registerComponent<GC_WorldButton>();
+    ComponentManager::registerComponent<GC_DemoAttractor>();
 }
 
 void Game::run() {
@@ -45,17 +50,17 @@ void Game::run() {
     isRunning = true;
 
     // This will be moved to a scene
-    entities.push_back(
-        (new Entity(window))
-        ->addComponent(new GC_Transform())
-        ->addComponent(new GC_Sprite("sheldon"))
-    );
+    // entities.push_back(
+    //     (new Entity(window))
+    //     ->addComponent(new GC_Transform())
+    //     ->addComponent(new GC_Sprite("sheldon"))
+    // );
 
-    entities.push_back(
-        (new Entity(window))
-        ->addComponent(new GC_Transform())
-        ->addComponent(new GC_Text("ProggyClean", "Hello, World!"))
-    );
+    // entities.push_back(
+    //     (new Entity(window))
+    //     ->addComponent(new GC_Transform())
+    //     ->addComponent(new GC_Text("ProggyClean", "Hello, World!"))
+    // );
 
     entities.push_back(
         (new Entity(window))
@@ -63,13 +68,36 @@ void Game::run() {
         ->addComponent(new GC_Camera())
     );
 
+    // entities.push_back(
+    //     (new Entity(window))
+    //     ->addComponent(new GC_Transform(100.0f, 100.0f))
+    //     ->addComponent(new GC_Sprite("sheldon"))
+    //     ->addComponent(new GC_Interaction())
+    //     ->addComponent(new GC_WorldButton())
+    // );
+
     entities.push_back(
         (new Entity(window))
-        ->addComponent(new GC_Transform(100.0f, 100.0f))
-        ->addComponent(new GC_Sprite("sheldon"))
-        ->addComponent(new GC_Interaction())
-        ->addComponent(new GC_WorldButton())
+        ->addComponent(new GC_Transform(0, 0))
+        ->addComponent(new GC_Sprite("goku"))
+        ->addComponent(new GC_DemoAttractor())
     );
+
+    entities.push_back(
+        (new Entity(window))
+        ->addComponent(new GC_Transform(200.0f, 200.0f))
+        ->addComponent(new GC_Sprite("sheldon"))
+        ->addComponent(new GC_DemoAttractor())
+    );
+
+    entities.push_back(
+        (new Entity(window))
+        ->addComponent(new GC_Transform(180.0f, 200.0f, 50.0f, 50.0f))
+        ->addComponent(new GC_Sprite("sheldon"))
+        ->addComponent(new GC_DemoAttractor())
+    );
+
+
 
     // Init entities
     for (auto& entity : entities) {
@@ -82,6 +110,11 @@ void Game::run() {
         if (!running()) break;
 
         update();
+        if (gameClock.getElapsedTime().asSeconds() >= (1.0f / 60.0f)) {
+            fixedUpdate();
+            staticDeltaTime = gameClock.getElapsedTime().asSeconds();
+            gameClock.restart();
+        }
 
         window->clear();
         render();
@@ -116,6 +149,12 @@ void Game::update() {
 void Game::render() {
     for (auto& entity : entities) {
         entity->render();
+    }
+}
+
+void Game::fixedUpdate() {
+    for (auto& entity : entities) {
+        entity->fixedUpdate();
     }
 }
 

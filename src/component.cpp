@@ -15,4 +15,5 @@ const std::vector<u32>& Component::getRequiredComponents() {
 
 void Component::init() {}
 void Component::update() {}
+void Component::fixedUpdate() {}
 void Component::render(sf::RenderTarget* target) {}
