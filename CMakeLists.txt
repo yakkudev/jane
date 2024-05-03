@@ -10,11 +10,12 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
+
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS "src/*.cpp" "src/*.h")
 add_executable(jane ${SOURCE_FILES})
 target_include_directories(jane PRIVATE src)
 target_link_libraries(jane PRIVATE sfml-graphics)
-target_compile_features(jane PRIVATE cxx_std_17)
+target_compile_features(jane PRIVATE cxx_std_20)
 
 if(WIN32)
     add_custom_command(

@@ -4,6 +4,8 @@
 #include "components/sprite.h"
 #include "components/text.h"
 #include "components/camera.h"
+#include "components/world_button.h"
+#include "components/interaction.h"
 #include <iostream>
 
 f32 Game::deltaTime = 0.0f;
@@ -59,6 +61,14 @@ void Game::run() {
         (new Entity(window))
         ->addComponent(new GC_Transform())
         ->addComponent(new GC_Camera())
+    );
+
+    entities.push_back(
+        (new Entity(window))
+        ->addComponent(new GC_Transform(100.0f, 100.0f))
+        ->addComponent(new GC_Sprite("sheldon"))
+        ->addComponent(new GC_Interaction())
+        ->addComponent(new GC_WorldButton())
     );
 
     // Init entities

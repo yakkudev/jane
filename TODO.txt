@@ -1,4 +1,4 @@
-onclick on sprite event
+static transform
 better throw
 basic scenes
 audio

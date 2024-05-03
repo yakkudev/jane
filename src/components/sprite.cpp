@@ -26,3 +26,7 @@ void GC_Sprite::update() {
 void GC_Sprite::render(sf::RenderTarget* target) {
     target->draw(*sprite);
 }
+
+sf::Sprite* GC_Sprite::getSprite() {
+    return sprite.get();
+}

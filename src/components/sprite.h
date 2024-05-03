@@ -11,6 +11,9 @@ private:
 public:
     GC_Sprite(const std::string& assetName);
     ~GC_Sprite();
+
     void update() override;
     void render(sf::RenderTarget* target) override;
+
+    sf::Sprite* getSprite();
 };
