@@ -4,6 +4,7 @@
 #include "types.h"
 #include "asset_manager.h"
 #include "component_manager.h"
+#include "scene.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -38,6 +39,9 @@ public:
     void handleEvents();
     void clean();
     bool running() { return isRunning; }
+
+    void addEntity(std::vector<Component*> components);
+    void playScene(Scene* scene);
 
     static Window* getWindow();
     static sf::View* getView();

@@ -1,5 +1,6 @@
 #include "game.h"
 #include "input_manager.h"
+#include "scene.h"
 #include "components/transform.h"
 #include "components/sprite.h"
 #include "components/text.h"
@@ -26,6 +27,20 @@ Game::~Game() {
     clean();
 }
 
+void Game::addEntity(std::vector<Component*> components) {
+    Entity* entity = new Entity(window);
+    for (auto& component : components) {
+        entity->addComponent(component);
+    }
+    entities.push_back(entity);
+}
+
+void Game::playScene(Scene* scene) {
+    for (auto& entity : scene->entities) {
+        addEntity(entity);
+    }
+}
+
 void Game::init() {
     AssetManager::init();
     InputManager::init(window);
@@ -40,6 +55,8 @@ void Game::init() {
     ComponentManager::registerComponent<GC_Interaction>();
     ComponentManager::registerComponent<GC_WorldButton>();
     ComponentManager::registerComponent<GC_DemoAttractor>();
+
+    SceneManager::init();
 }
 
 void Game::run() {
@@ -49,56 +66,8 @@ void Game::run() {
 
     isRunning = true;
 
-    // This will be moved to a scene
-    // entities.push_back(
-    //     (new Entity(window))
-    //     ->addComponent(new GC_Transform())
-    //     ->addComponent(new GC_Sprite("sheldon"))
-    // );
-
-    // entities.push_back(
-    //     (new Entity(window))
-    //     ->addComponent(new GC_Transform())
-    //     ->addComponent(new GC_Text("ProggyClean", "Hello, World!"))
-    // );
-
-    entities.push_back(
-        (new Entity(window))
-        ->addComponent(new GC_Transform())
-        ->addComponent(new GC_Camera())
-    );
-
-    // entities.push_back(
-    //     (new Entity(window))
-    //     ->addComponent(new GC_Transform(100.0f, 100.0f))
-    //     ->addComponent(new GC_Sprite("sheldon"))
-    //     ->addComponent(new GC_Interaction())
-    //     ->addComponent(new GC_WorldButton())
-    // );
-
-    entities.push_back(
-        (new Entity(window))
-        ->addComponent(new GC_Transform(0, 0))
-        ->addComponent(new GC_Sprite("goku"))
-        ->addComponent(new GC_DemoAttractor(2500, 50, { 0, 0 }))
-    );
-
-    entities.push_back(
-        (new Entity(window))
-        ->addComponent(new GC_Transform(200.0f, 200.0f))
-        ->addComponent(new GC_Sprite("sheldon"))
-        // ->addComponent(new GC_DemoAttractor(10, 5, { 5,-9 }))
-        ->addComponent(new GC_DemoAttractor(10, 5, { 0, 0 }))
-    );
-
-    entities.push_back(
-        (new Entity(window))
-        ->addComponent(new GC_Transform(180.0f, 200.0f, 50.0f, 50.0f))
-        ->addComponent(new GC_Sprite("sheldon"))
-        ->addComponent(new GC_DemoAttractor(0.00001f, 1, { 0, -9 }))
-    );
-
-
+    playScene(SceneManager::scenes[2]);
+    addEntity({ new GC_Transform(), new GC_Camera() });
 
     // Init entities
     for (auto& entity : entities) {

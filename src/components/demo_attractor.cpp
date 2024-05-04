@@ -16,6 +16,10 @@ GC_DemoAttractor::GC_DemoAttractor(float mass, float radius, Vec2 velocity) {
     require<GC_Transform>();
 }
 
+GC_DemoAttractor::GC_DemoAttractor(float mass, float radius, Vec2 velocity, bool isStatic) : GC_DemoAttractor(mass, radius, velocity) {
+    this->isStatic = isStatic;
+}
+
 void GC_DemoAttractor::init() {
     this->transform = entity->getComponent<GC_Transform>();
     attractors.push_back(this);
@@ -49,6 +53,7 @@ void GC_DemoAttractor::fixedUpdate() {
         if (attractor == this) continue;
         attract(attractor);
     }
+    if (isStatic) return;
     transform->position += velocity;
 }
 
@@ -78,7 +83,7 @@ void GC_DemoAttractor::render(sf::RenderTarget* target) {
     counter++;
     if (counter % 5 == 0) {
         positions.push_back(transform->position);
-        if (positions.size() > 500) {
+        if (positions.size() > 100) {
             positions.erase(positions.begin());
         }
     }

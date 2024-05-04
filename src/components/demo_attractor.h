@@ -16,8 +16,10 @@ private:
     int counter = 0;
 public:
     GC_DemoAttractor(float mass, float radius, Vec2 velocity);
+    GC_DemoAttractor(float mass, float radius, Vec2 velocity, bool isStatic);
     ~GC_DemoAttractor();
 
+    bool isStatic = false;
     float mass;
     float radius;
     const float G = 10;
