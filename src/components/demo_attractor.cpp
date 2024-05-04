@@ -6,9 +6,11 @@
 
 std::vector<GC_DemoAttractor*> GC_DemoAttractor::attractors;
 
-GC_DemoAttractor::GC_DemoAttractor() {
-    mass = 2000.0f;
-    radius = 25.0f;
+GC_DemoAttractor::GC_DemoAttractor(float mass, float radius, Vec2 velocity) {
+    this->mass = mass;
+    this->radius = radius;
+    this->velocity = velocity;
+
     shape.setFillColor(sf::Color::Green);
 
     require<GC_Transform>();
@@ -17,17 +19,6 @@ GC_DemoAttractor::GC_DemoAttractor() {
 void GC_DemoAttractor::init() {
     this->transform = entity->getComponent<GC_Transform>();
     attractors.push_back(this);
-    if (attractors.size() == 2) {
-        velocity = { 5.0f, -9.0f };
-        mass = 10.0f;
-        radius = 5.0f;
-    }
-
-    if (attractors.size() == 3) {
-        velocity = { 0.0f, -9.0f };
-        mass = 0.00001f;
-        radius = 1.0f;
-    }
 }
 
 GC_DemoAttractor::~GC_DemoAttractor() {
@@ -38,13 +29,19 @@ void GC_DemoAttractor::attract(GC_DemoAttractor* attractor) {
     Vec2 force = transform->position - attractor->transform->position;
     f32 distance = sqrt(force.x * force.x + force.y * force.y);
     f32 strength = (G * mass * attractor->mass) / (distance * distance);
-    force = (force / distance) * strength;
 
+    // Prevent collision
     if (distance < radius + attractor->radius) {
-        force = { 0.0f, 0.0f };
+        // Set transform of both objects to be outside of the collision
+        // Taking into acconut the mass of the objects
+        transform->position += force / distance * (radius + attractor->radius - distance) * (attractor->mass / (mass + attractor->mass));
+        attractor->transform->position -= force / distance * (radius + attractor->radius - distance) * (mass / (mass + attractor->mass));
+    }
+    else {
+        force = (force / distance) * strength;
+        velocity -= force / mass;
     }
 
-    attractor->velocity += force / attractor->mass;
 }
 
 void GC_DemoAttractor::fixedUpdate() {

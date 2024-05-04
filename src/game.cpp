@@ -80,21 +80,22 @@ void Game::run() {
         (new Entity(window))
         ->addComponent(new GC_Transform(0, 0))
         ->addComponent(new GC_Sprite("goku"))
-        ->addComponent(new GC_DemoAttractor())
+        ->addComponent(new GC_DemoAttractor(2500, 50, { 0, 0 }))
     );
 
     entities.push_back(
         (new Entity(window))
         ->addComponent(new GC_Transform(200.0f, 200.0f))
         ->addComponent(new GC_Sprite("sheldon"))
-        ->addComponent(new GC_DemoAttractor())
+        // ->addComponent(new GC_DemoAttractor(10, 5, { 5,-9 }))
+        ->addComponent(new GC_DemoAttractor(10, 5, { 0, 0 }))
     );
 
     entities.push_back(
         (new Entity(window))
         ->addComponent(new GC_Transform(180.0f, 200.0f, 50.0f, 50.0f))
         ->addComponent(new GC_Sprite("sheldon"))
-        ->addComponent(new GC_DemoAttractor())
+        ->addComponent(new GC_DemoAttractor(0.00001f, 1, { 0, -9 }))
     );
 
 

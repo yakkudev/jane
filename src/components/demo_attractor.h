@@ -15,7 +15,7 @@ private:
 
     int counter = 0;
 public:
-    GC_DemoAttractor();
+    GC_DemoAttractor(float mass, float radius, Vec2 velocity);
     ~GC_DemoAttractor();
 
     float mass;
