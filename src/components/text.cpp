@@ -10,11 +10,12 @@ GC_Text::GC_Text(const std::string& assetName, const std::string& contents) {
     require<GC_Transform>();
 }
 
-GC_Text::~GC_Text() {
+
+void GC_Text::init() {
+    transform = entity->getComponent<GC_Transform>();
 }
 
 void GC_Text::update() {
-    auto transform = entity->getComponent<GC_Transform>();
     text->setPosition(transform->position);
     text->setRotation(transform->rotation);
     text->setCharacterSize(16);

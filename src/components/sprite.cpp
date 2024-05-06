@@ -8,11 +8,11 @@ GC_Sprite::GC_Sprite(const std::string& assetName) {
     require<GC_Transform>();
 }
 
-GC_Sprite::~GC_Sprite() {
+void GC_Sprite::init() {
+    transform = entity->getComponent<GC_Transform>();
 }
 
 void GC_Sprite::update() {
-    auto transform = entity->getComponent<GC_Transform>();
     sprite->setPosition(transform->position);
 
     // Scale sprite so texture fits the entity

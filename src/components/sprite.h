@@ -1,17 +1,18 @@
 #pragma once
 
 #include "component.h"
+#include "transform.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
 class GC_Sprite : public Component {
 private:
     std::unique_ptr<sf::Sprite> sprite;
-
+    GC_Transform* transform;
 public:
     GC_Sprite(const std::string& assetName);
-    ~GC_Sprite();
 
+    void init() override;
     void update() override;
     void render(sf::RenderTarget* target) override;
 
