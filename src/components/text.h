@@ -6,6 +6,7 @@
 #include <memory>
 
 class GC_Text : public Component {
+    REGISTER_GC(GC_Text)
 private:
     std::unique_ptr<sf::Text> text;
     GC_Transform* transform;

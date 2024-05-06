@@ -8,6 +8,7 @@
 #include <vector>
 
 class GC_Interaction : public Component {
+    REGISTER_GC(GC_Interaction)
 public:
     enum class Type {
         MOUSE_ENTER, // Not implemented

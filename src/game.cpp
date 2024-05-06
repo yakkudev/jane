@@ -2,12 +2,7 @@
 #include "input_manager.h"
 #include "scene.h"
 #include "components/transform.h"
-#include "components/sprite.h"
-#include "components/text.h"
 #include "components/camera.h"
-#include "components/world_button.h"
-#include "components/interaction.h"
-#include "components/demo_attractor.h"
 #include <iostream>
 
 f32 Game::deltaTime = 0.0f;
@@ -44,17 +39,6 @@ void Game::playScene(Scene* scene) {
 void Game::init() {
     AssetManager::init();
     InputManager::init(window);
-
-    u32 test2 = ComponentManager::registerComponent<GC_Sprite>();
-    u32 test = ComponentManager::registerComponent<GC_Transform>();
-    runTest<GC_Transform>(test);
-    runTest<GC_Sprite>(test2);
-
-    ComponentManager::registerComponent<GC_Text>();
-    ComponentManager::registerComponent<GC_Camera>();
-    ComponentManager::registerComponent<GC_Interaction>();
-    ComponentManager::registerComponent<GC_WorldButton>();
-    ComponentManager::registerComponent<GC_DemoAttractor>();
 
     SceneManager::init();
 }

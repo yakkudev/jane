@@ -6,6 +6,8 @@
 #include <memory>
 
 class GC_Sprite : public Component {
+    REGISTER_GC(GC_Sprite)
+
 private:
     std::unique_ptr<sf::Sprite> sprite;
     GC_Transform* transform;

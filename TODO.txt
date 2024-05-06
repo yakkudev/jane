@@ -1,7 +1,5 @@
 better throw
-basic scenes
 audio
 game/engine separation
 generic asset loading and management (automatic loading)
-hot reloading
 safety (smart pointers) (very optional)

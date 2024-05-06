@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 class GC_Camera : public Component {
+    REGISTER_GC(GC_Camera)
 private:
     GC_Transform* transform;
     sf::View* view;

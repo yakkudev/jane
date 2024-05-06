@@ -5,6 +5,7 @@
 #include "sprite.h"
 
 class GC_WorldButton : public Component {
+    REGISTER_GC(GC_WorldButton)
 private:
     GC_Interaction* interaction;
     GC_Sprite* sprite;

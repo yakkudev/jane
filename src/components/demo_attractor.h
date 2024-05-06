@@ -7,6 +7,7 @@
 #include "types.h"
 
 class GC_DemoAttractor : public Component {
+    REGISTER_GC(GC_DemoAttractor)
 private:
     sf::CircleShape shape;
     GC_Transform* transform;

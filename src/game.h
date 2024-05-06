@@ -11,17 +11,6 @@
 class Game {
 private:
 
-    template <typename T>
-    static void runTest(int testValue) {
-        if (ComponentManager::getComponentID<T>() == testValue) {
-            std::cout << "Test passed!" << std::endl;
-        }
-        else {
-            std::cout << "Test failed!" << std::endl;
-            throw std::runtime_error("Test failed!");
-        }
-    }
-
     static Window* window;
     static sf::View* view;
     bool isRunning;

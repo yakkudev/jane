@@ -1,10 +1,15 @@
 #pragma once
 
 #include "component.h"
+#include "component_manager.h"
 #include "types.h"
 #include <SFML/Graphics.hpp>
 
+
+
 class GC_Transform : public Component {
+    REGISTER_GC(GC_Transform)
+
 public:
     Vec2 position;
     Vec2 scale;
