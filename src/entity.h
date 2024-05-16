@@ -44,4 +44,5 @@ public:
     virtual void fixedUpdate();
     virtual void render();
 
+    bool isUI = false;
 };

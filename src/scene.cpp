@@ -7,6 +7,7 @@
 #include "components/world_button.h"
 #include "components/interaction.h"
 #include "components/demo_attractor.h"
+#include "components/demo_attractor_action.h"
 
 Scene::Scene(std::vector<std::vector<Component*>> entities) : entities(entities) {}
 
@@ -39,7 +40,9 @@ void SceneManager::init() {
         {
             new GC_Transform(600.0f, 0.0f),
             new GC_Sprite("sheldon"),
-            new GC_DemoAttractor(100.0f, 15.0f, {0, -10})
+            new GC_DemoAttractor(100.0f, 15.0f, {0, -10}),
+            new GC_DemoAttractorAction(),
+            new GC_Interaction(),
         },
         {
             new GC_Transform(200.0f, 0.0f, 10,10),
