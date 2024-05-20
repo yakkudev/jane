@@ -58,33 +58,31 @@ void GC_DemoAttractor::fixedUpdate() {
 }
 
 void GC_DemoAttractor::render(sf::RenderTarget* target) {
-    shape.setRadius(radius);
-    shape.setPosition(transform->position);
-    shape.setOrigin(radius, radius);
-    target->draw(shape);
 
     // Draw line history
-    for (auto& p : positions) {
-        sf::CircleShape circle(2.0f);
-        // Different fill color for each attractor
-        if (attractors[0] == this) {
-            circle.setFillColor(sf::Color::Red);
-        }
-        else if (attractors[1] == this) {
-            circle.setFillColor(sf::Color::Green);
-        }
-        else if (attractors[2] == this) {
-            circle.setFillColor(sf::Color::Blue);
-        }
-        circle.setPosition(p);
-        target->draw(circle);
+    sf::Vertex line[400];
+    for (i32 i = 0; i < 400; i++) {
+        if (i >= positions.size()) break;
+        line[i] = sf::Vertex(positions[i]);
+        Color col = hsv(mass, 255, 255);
+        line[i].color = Color(col.r, col.g, col.b, (i * 255 / positions.size()));
     }
+    target->draw(line, positions.size(), sf::LineStrip, sf::RenderStates::Default);
 
+
+    int samplingRate = 1;
+    if (velocity.x * velocity.x + velocity.y * velocity.y < 10) samplingRate = 1;
     counter++;
-    if (counter % 5 == 0) {
+    if (counter % samplingRate == 0) {
         positions.push_back(transform->position);
-        if (positions.size() > 100) {
+        if (positions.size() > 400) {
             positions.erase(positions.begin());
         }
     }
+
+    shape.setRadius(radius);
+    shape.setPosition(transform->position);
+    shape.setOrigin(radius, radius);
+    shape.setFillColor(hsv(mass, 255, 255));
+    target->draw(shape);
 }

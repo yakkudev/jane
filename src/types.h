@@ -38,5 +38,9 @@ typedef sf::RenderWindow Window;
 typedef sf::Keyboard::Key KeyCode;
 typedef sf::Mouse::Button MouseButton;
 
+// ==== UTILS ====
+// HSV to RGB
+Color hsv(u32 hue, u8 sat, u8 val);
+
 // ==== ENGINE ====
 #define REGISTER_GC(comp) private: inline static i32 COMPONENT_REGISTRATION = ComponentManager::registerComponent<comp>();
