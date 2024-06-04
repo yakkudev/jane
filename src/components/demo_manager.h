@@ -1,9 +1,9 @@
 #pragma once
 
+#include "types.h"
 #include <vector>
 #include "component.h"
 #include "transform.h"
-#include "types.h"
 
 class GC_DemoManager : public Component {
     REGISTER_GC(GC_DemoManager)
@@ -14,6 +14,7 @@ private:
     f32 spawnMass = 10;
 
 public:
+    GC_DemoManager();
 
     void init() override;
     void update() override;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "types.h"
 #include "component.h"
 #include "interaction.h"
 #include "sprite.h"

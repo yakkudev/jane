@@ -4,7 +4,8 @@
 #include "transform.h"
 #include <iostream>
 
-GC_Interaction::GC_Interaction() {
+GC_Interaction::GC_Interaction(f32 scale) {
+    this->scale = scale;
     require<GC_Transform>();
 }
 
@@ -19,11 +20,12 @@ void GC_Interaction::init() {
 void GC_Interaction::update() {
     auto mousePos = InputManager::getMouseWorldPosition();
     auto bounds = sf::Rect(
-        transform->position.x - transform->scale.x / 2,
-        transform->position.y - transform->scale.y / 2,
-        transform->scale.x,
-        transform->scale.y
+        transform->position.x - transform->scale.x / 2 * scale,
+        transform->position.y - transform->scale.y / 2 * scale,
+        transform->scale.x * scale,
+        transform->scale.y * scale
     );
+
 
     if (bounds.contains(mousePos)) {
         for (auto& listener : listeners) {

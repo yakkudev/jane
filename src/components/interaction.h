@@ -10,6 +10,8 @@
 class GC_Interaction : public Component {
     REGISTER_GC(GC_Interaction)
 public:
+    f32 scale;
+
     enum class Type {
         MOUSE_ENTER, // Not implemented
         MOUSE_EXIT, // Not implemented
@@ -17,7 +19,7 @@ public:
         MOUSE_UP,
     };
 
-    GC_Interaction();
+    GC_Interaction(f32 scale);
 
     void update() override;
 

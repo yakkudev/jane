@@ -1,9 +1,9 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include "interaction.h"
 #include "sprite.h"
 #include "world_button.h"
 #include "entity.h"
+#include "game.h"
+#include "scene.h"
 
 GC_WorldButton::GC_WorldButton() {
     require<GC_Interaction, GC_Sprite>();
@@ -19,5 +19,7 @@ void GC_WorldButton::init() {
 
 void GC_WorldButton::onClick() {
     sprite->getSprite()->setColor(sf::Color::Red);
+
+    Game::getGame()->playScene(SceneManager::scenes[2]);
     std::cout << "Button clicked!" << std::endl;
 }

@@ -1,8 +1,7 @@
 #include "game.h"
 #include "input_manager.h"
 #include "scene.h"
-#include "components/transform.h"
-#include "components/camera.h"
+#include "components/demo_attractor.h"
 #include <iostream>
 
 f32 Game::deltaTime = 0.0f;
@@ -48,10 +47,47 @@ void Game::addUIEntity(std::vector<Component*> components) {
     addEntity(entity);
 }
 
+void Game::killEntity(Entity* entity) {
+    entityKillBuffer.push_back(entity);
+}
+
 void Game::playScene(Scene* scene) {
+    nextScene = scene;
+}
+
+void Game::loadScene() {
+    // find index of scene
+    u32 index = 0;
+    for (u32 i = 0; i < SceneManager::scenes.size(); i++) {
+        if (SceneManager::scenes[i] == nextScene) {
+            index = i;
+            break;
+        }
+    }
+
+    std::cout << "Loading scene: " << index << std::endl;
+
+    SceneManager::scenes.clear();
+    SceneManager::init();
+
+    for (auto& entity : entities) {
+        delete entity;
+        std::cout << "Entity killed" << std::endl;
+    }
+    entities.clear();
+    std::cout << "Entities cleared" << std::endl;
+
+    // Reinitialize scenes
+    Scene* scene = SceneManager::scenes[index];
+    std::cout << "Scene initialized" << std::endl;
+
     for (auto& entity : scene->entities) {
         addEntity(entity);
+        std::cout << "Entity added" << std::endl;
     }
+    pushEntityBuffer();
+    nextScene = nullptr;
+    std::cout << "Scene loaded" << std::endl;
 }
 
 void Game::init() {
@@ -69,18 +105,16 @@ void Game::run() {
     isRunning = true;
 
     playScene(SceneManager::scenes[2]);
-    addEntity({ new GC_Transform(), new GC_Camera() });
-    pushEntityBuffer();
-
-    // Init entities
-    for (auto& entity : entities) {
-        entity->init();
-    }
 
     // Update loop
     for (;;) {
         handleEvents();
         if (!running()) break;
+
+        if (nextScene != nullptr) {
+            loadScene();
+            continue;
+        }
 
         pushEntityBuffer();
 
@@ -107,8 +141,15 @@ void Game::run() {
 void Game::pushEntityBuffer() {
     for (auto& entity : entityBuffer) {
         entities.push_back(entity);
+        entity->init();
     }
     entityBuffer.clear();
+
+    for (auto& entity : entityKillBuffer) {
+        entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
+        delete entity;
+    }
+    entityKillBuffer.clear();
 }
 
 void Game::handleEvents() {
@@ -140,8 +181,14 @@ void Game::render() {
 }
 
 void Game::fixedUpdate() {
+    static u32 count = 0;
+    count++;
     for (auto& entity : entities) {
         entity->fixedUpdate();
+    }
+    if (count % 60 == 0) {
+        std::cout << "SCENE ENTITIES: " << entities.size() << std::endl;
+        std::cout << "SPAWN/KILL BUFFER: " << entityBuffer.size() << " / " << entityKillBuffer.size() << std::endl;
     }
 }
 
@@ -157,11 +204,6 @@ void Game::drawUI() {
     window->setView(window->getDefaultView());
     window->draw(sprite);
     window->setView(*view);
-}
-
-void Game::killEntity(Entity* entity) {
-    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
-    delete entity;
 }
 
 void Game::clean() {

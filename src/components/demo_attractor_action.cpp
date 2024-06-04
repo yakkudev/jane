@@ -3,21 +3,21 @@
 #include "transform.h"
 #include "game.h"
 #include "sprite.h"
+#include "camera.h"
 #include "interaction.h"
 
+GC_DemoAttractorAction::GC_DemoAttractorAction() {
+}
+
 void GC_DemoAttractorAction::onClick() {
-    if (UIPanel) { return; }
-    UIPanel = new Entity(Game::getGame()->getUITexture());
-    UIPanel->addComponent(new GC_Transform(0, 0, 100, 100));
-    UIPanel->addComponent(new GC_Sprite("sheldon"));
-    UIPanel->isUI = true;
-    UIPanel->init();
-    Game::getGame()->addEntity(UIPanel);
+    Game::getGame()->entities[0]->getComponent<GC_Camera>()->setLock(transform);
+
 }
 
 void GC_DemoAttractorAction::init() {
     require<GC_DemoAttractor, GC_Interaction>();
     interaction = entity->getComponent<GC_Interaction>();
+    transform = entity->getComponent<GC_Transform>();
 
     interaction->registerListener(std::bind(&GC_DemoAttractorAction::onClick, this), GC_Interaction::Type::MOUSE_DOWN);
 }

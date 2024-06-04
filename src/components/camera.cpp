@@ -7,6 +7,7 @@
 GC_Camera::GC_Camera() {
     zoom = 1.0f;
     view = Game::getView();
+    lock = nullptr;
 
     require<GC_Transform>();
 }
@@ -17,8 +18,8 @@ void GC_Camera::init() {
 }
 
 void GC_Camera::update() {
-
-    if (InputManager::getMouseButton(MouseButton::Left)) {
+    if (InputManager::getMouseButton(MouseButton::Middle)) {
+        lock = nullptr;
         transform->position.x -= InputManager::getMouseDelta().x / zoom;
         transform->position.y -= InputManager::getMouseDelta().y / zoom;
     }
@@ -34,12 +35,20 @@ void GC_Camera::update() {
     }
     else if (InputManager::getMouseWheel() < 0) {
         zoom -= 0.1f * zoom;
-        if (zoom < 0.1f) {
-            zoom = 0.1f;
+        if (zoom < 0.02f) {
+            zoom = 0.02f;
         }
+    }
+
+    if (lock != nullptr) {
+        transform->position = lock->position;
     }
 
     view->setCenter(transform->position);
     view->setSize(Game::getWindow()->getSize().x / zoom, Game::getWindow()->getSize().y / zoom);
     Game::getWindow()->setView(*view);
+}
+
+void GC_Camera::setLock(GC_Transform* target) {
+    lock = target;
 }

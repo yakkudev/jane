@@ -14,23 +14,27 @@ private:
 
     std::vector<Vec2> positions;
 
-    int counter = 0;
+    u32 counter = 0;
 public:
-    GC_DemoAttractor(float mass, float radius, Vec2 velocity);
-    GC_DemoAttractor(float mass, float radius, Vec2 velocity, bool isStatic);
-    ~GC_DemoAttractor();
+    GC_DemoAttractor(f32 mass, f32 colorOffset, Vec2 velocity);
+    GC_DemoAttractor(f32 mass, f32 colorOffset, Vec2 velocity, bool isStatic);
 
     bool isStatic = false;
-    float mass;
-    float radius;
-    const float G = 10;
+    f32 colorOffset = 0;
+    f32 mass;
+    f32 radius;
+    const f32 G = 6.674;
     Vec2 velocity;
+
+    std::vector<GC_DemoAttractor*> collidedWith;
 
     void init() override;
     void fixedUpdate() override;
     void render(sf::RenderTarget* target) override;
+    void clean() override;
 
-    void attract(GC_DemoAttractor* attractor);
+    Vec2 attract(GC_DemoAttractor* attractor);
+    void simulate(GC_DemoAttractor* attractor);
 
     static std::vector<GC_DemoAttractor*> attractors;
 

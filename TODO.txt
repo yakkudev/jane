@@ -1,5 +1,0 @@
-better throw
-audio
-game/engine separation
-generic asset loading and management (automatic loading)
-safety (smart pointers) (very optional)

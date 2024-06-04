@@ -13,8 +13,9 @@ private:
     GC_Transform* transform;
     GC_Interaction* interaction;
 
-    Entity* UIPanel;
 public:
+    GC_DemoAttractorAction();
+
     void init() override;
     void update() override;
     void onClick();

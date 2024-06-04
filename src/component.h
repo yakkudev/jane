@@ -15,6 +15,9 @@ protected:
         (requiredComponents.push_back(ComponentManager::getComponentID<required>()), ...);
     }
 public:
+    Component();
+    Component(Component* component);
+
     void setEntity(Entity* entity);
     const std::vector<u32>& getRequiredComponents();
 
@@ -22,4 +25,6 @@ public:
     virtual void update();
     virtual void fixedUpdate();
     virtual void render(sf::RenderTarget* target);
+
+    virtual void clean();
 };

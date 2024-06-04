@@ -1,5 +1,11 @@
 #include "transform.h"
 
+GC_Transform::GC_Transform() {
+    this->position = { 0.0f, 0.0f };
+    this->scale = { 128.0f, 128.0f };
+    this->rotation = 0.0f;
+}
+
 GC_Transform::GC_Transform(f32 x, f32 y) {
     this->position = { x, y };
     this->scale = { 128.0f, 128.0f };

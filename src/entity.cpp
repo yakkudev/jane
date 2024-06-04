@@ -7,7 +7,8 @@ Entity::Entity(sf::RenderTarget* target) {
 }
 
 Entity::~Entity() {
-    for (auto& component : components) {
+    for (auto component : components) {
+        component->clean();
         delete component;
     }
 }
@@ -39,6 +40,8 @@ Entity* Entity::addComponent(Component* component) {
 
 void Entity::removeComponent(Component* component) {
     components.erase(std::remove(components.begin(), components.end(), component), components.end());
+    component->clean();
+    delete component;
 }
 
 void Entity::update() {

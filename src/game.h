@@ -16,8 +16,9 @@ private:
     static sf::View* view;
     static sf::RenderTexture* uiTexture;
     bool isRunning;
-    std::vector<Entity*> entities;
+    Scene* nextScene;
     std::vector<Entity*> entityBuffer;
+    std::vector<Entity*> entityKillBuffer;
 
     void update();
     void fixedUpdate();
@@ -25,7 +26,11 @@ private:
     void drawUI();
     void handleEvents();
     void clean();
+
+    void loadScene();
 public:
+    std::vector<Entity*> entities;
+
     Game(u32 width, u32 height, const std::string& title);
     ~Game();
     void init();

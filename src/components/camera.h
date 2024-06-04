@@ -10,6 +10,7 @@ class GC_Camera : public Component {
 private:
     GC_Transform* transform;
     sf::View* view;
+    GC_Transform* lock;
 public:
     f32 zoom;
 
@@ -17,4 +18,5 @@ public:
 
     void init() override;
     void update() override;
+    void setLock(GC_Transform* entity);
 };

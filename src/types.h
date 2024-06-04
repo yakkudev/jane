@@ -26,7 +26,6 @@ static_assert(sizeof(f64) == 8, "f64 is not 64 bits");
 typedef unsigned long long usize;
 static_assert(sizeof(usize) == sizeof(void*), "usize is not the same size as a pointer");
 
-
 // ==== SFML ====
 #include <SFML/Graphics.hpp>
 
@@ -40,7 +39,12 @@ typedef sf::Mouse::Button MouseButton;
 
 // ==== UTILS ====
 // HSV to RGB
-Color hsv(u32 hue, u8 sat, u8 val);
+Color hsv(f32 hue, f32 sat, f32 val);
+// Vector stuff
+f32 magnitude(Vec2 v);
+Vec2 normalized(Vec2 v);
+f32 dot(Vec2 a, Vec2 b);
+Vec2 operator*(const Vec2& v, const f32& s);
 
 // ==== ENGINE ====
-#define REGISTER_GC(comp) private: inline static i32 COMPONENT_REGISTRATION = ComponentManager::registerComponent<comp>();
+#define REGISTER_GC(comp) private: inline static i32 COMPONENT_REGISTRATION = ComponentManager::registerComponent<comp>(); 
