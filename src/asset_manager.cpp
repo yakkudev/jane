@@ -6,8 +6,8 @@ std::map<std::string, sf::Texture*> AssetManager::textures;
 std::map<std::string, sf::Font*> AssetManager::fonts;
 
 void AssetManager::init() {
-    loadTexture("goku", "assets/goku.png");
-    loadTexture("sheldon", "assets/sheldon.png");
+    // loadTexture("goku", "assets/goku.png");
+    // loadTexture("sheldon", "assets/sheldon.png");
 
     loadFont("ProggyClean", "assets/ProggyClean.ttf");
 }

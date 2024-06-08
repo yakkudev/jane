@@ -20,7 +20,6 @@ void SceneManager::init() {
     new Scene({
         {
             new GC_Transform(),
-            new GC_Sprite("sheldon")
         },
         {
             new GC_Transform(),
@@ -28,7 +27,6 @@ void SceneManager::init() {
         },
         {
             new GC_Transform(100.0f, 100.0f),
-            new GC_Sprite("sheldon"),
             new GC_Interaction(1),
             new GC_WorldButton()
         }
